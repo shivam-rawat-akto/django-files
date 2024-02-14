@@ -1,0 +1,12 @@
+name: Run code analysis
+
+on:
+  workflow_dispatch
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: code-analysis
+        run: docker run --rm -t -v "$PWD:/project"  shivamrawat10/code-analysis:latest | sed 's/\x1B\[[0-9;]\{1,\}[A-Za-z]//g' >> $GITHUB_STEP_SUMMARY
